@@ -181,6 +181,11 @@ def min_covers(R, FD):
         all_sigma2 = []
         if len(previous_all_sigma2) > 0:
             for each in previous_all_sigma2:
+                if len(fd[0]) == 0:
+                    temp = each.copy()
+                    temp.append(fd)
+                    all_sigma2.append(temp)
+                    continue
                 for LHS in fd[0]:
                     temp = each.copy()
                     temp.append([LHS, fd[1]])
@@ -282,6 +287,11 @@ def all_min_covers(R, FD):
     R = R.copy()
     FD = FD.copy()
     sigma_plus = all_closures(R, FD)
+
+    # consider the LHS of some fd is null
+    for fd in FD:
+        if len(fd[0])==0:
+            sigma_plus.append(fd)
 
     # remove trivial in sigma_plus
     sigma_plus_origin = sigma_plus.copy()
